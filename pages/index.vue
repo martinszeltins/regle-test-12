@@ -1,57 +1,5 @@
 <template>
     <div>
-        <div class="fixed top-5 right-5 bg-gray-800 border border-gray-600 w-[450px] h-[calc(100vh-50px)] overflow-x-hidden overflow-y-auto text-sm p-4 rounded text-gray-400">
-            <pre>{{ r$ }}</pre>
-        </div>
-
-        <div class="fixed top-5 left-5 bg-gray-800 border border-gray-600 w-[330px] text-gray-400 overflow-hidden text-sm p-4 rounded">
-            <pre>
-[ ] Backend validation, rule
-    parsing (!) - (backend errors
-    dont get added)
-[ ] Deeply nested objects, arrays
-[ ] Check Vuelidate issues for ideas
-[x] Conditional rules
-[x] Dynamic, custom error messages
-    with i18n, (minWeight example)
-    from LiPO.
-[x] No frontend rule, only backend
-    rule (does it work?) (!)
-[x] Easy, custom rules with custom
-    message
-[x] Get dirty fields
-[x] Collections
-[ ] Live, lazy validation (validate
-    does not work at all, now vali-
-    date works on 2nd click)
-[x] Resetting validation
-[ ] Clear backend validation
-    (both wih $clear() and the auto
-    one. Test both.)
-[ ] Trigger validation for
-    individual fields.
-[ ] touch() and touched, also check
-    for collections.
-[ ] reset validation for specific
-    fields only.
-[x] easily get which fields are
-    required so we can show *
-[ ] Test if we can access parent
-    fields in validation rule.
-[ ] Swap all rules with another
-    set of rules.
-[x] Backend message appears on first
-    validation() call. But if we
-    call reset and then validate()
-    again, the backend message
-    does not show up.
-[x] Rule function pass arguments.
-[x] Clear BE errors on change.
-[x] $each: (_, index) any type!?
-[ ] Improve docs.
-            </pre>
-        </div>
-
         <h1 class="font-bold text-2xl text-gray-200">New Shipment</h1>
 
         <div class="bg-gray-800 shadow-lg rounded-lg p-5 mt-5">
@@ -125,26 +73,6 @@
 
             <button @click="someNumber++" class="ml-2 bg-gray-600 text-gray-200 px-10 py-3 rounded mt-6 hover:bg-gray-700 hover:active:bg-gray-900 transition">
                 Some Number: {{ someNumber }}
-            </button>
-
-            <button @click="toggleLocale" class="ml-2 bg-gray-600 text-gray-200 px-10 py-3 rounded mt-6 hover:bg-gray-700 hover:active:bg-gray-900 transition">
-                Toggle Locale
-            </button>
-
-            <button @click="getDirtyFields" class="ml-2 bg-gray-600 text-gray-200 px-10 py-3 rounded mt-6 hover:bg-gray-700 hover:active:bg-gray-900 transition">
-                Get Dirty Fields
-            </button>
-
-            <button @click="addShipmentItem" class="ml-2 bg-gray-600 text-gray-200 px-10 py-3 rounded mt-6 hover:bg-gray-700 hover:active:bg-gray-900 transition">
-                Add Shipment Item
-            </button>
-
-            <button @click="removeLastShipmentItem" class="ml-2 bg-gray-600 text-gray-200 px-10 py-3 rounded mt-6 hover:bg-gray-700 hover:active:bg-gray-900 transition">
-                Remove Shipment Item
-            </button>
-
-            <button @click="resetValidation" class="ml-2 bg-gray-600 text-gray-200 px-10 py-3 rounded mt-6 hover:bg-gray-700 hover:active:bg-gray-900 transition">
-                Reset Validation
             </button>
         </div>
     </div>
@@ -233,38 +161,8 @@
 
     const { r$ } = useRegle(form, rules, { externalErrors, autoDirty: true, clearExternalErrorsOnChange: true  })
 
-    const toggleLocale = () => {
-        setLocale(locale.value === 'en' ? locale.value = 'es' : locale.value = 'en')
-    }
-
-    const addShipmentItem = async () => {
-        form.value.shipmentItems.push({ name: '', quantity: 1, weight: '' })
-
-        await nextTick()
-        window.scrollTo({ top: document.body.scrollHeight, behavior: 'instant' })
-    }
-
-    const removeLastShipmentItem = async () => {
-        form.value.shipmentItems.splice(form.value.shipmentItems.length - 1, 1)
-        
-        await nextTick()
-        window.scrollTo({ top: document.body.scrollHeight, behavior: 'instant' })
-    }
-
-    const getDirtyFields = () => {
-        console.log(r$.$extractDirtyFields())
-    }
-
     const scrollToErrors = async () => {
-        await nextTick()
-
-        setTimeout(() => {
-            const firstErrorElement = document.querySelector('.field-error')
-
-            if (firstErrorElement) {
-                window.scrollTo({ top: firstErrorElement?.getBoundingClientRect().top + 100, behavior: 'smooth' })
-            }
-        }, 100)
+        //
     }
 
     const save = async () => {
